@@ -23,10 +23,12 @@ def create_links(tracks):
     links = []
     for track in tracks:
         try:
-            if 'href' in track.attrs:
+            if type(track) == 'NoneType':
+                continue
+            elif 'href' in track.attrs:
                 links.append(track.attrs['href'])
         except:
-            pass
+            continue
     return links
                 
 
@@ -49,17 +51,21 @@ def download(path,info,count):
 
 
 if __name__ == '__main__':
-    count = 1
+    count = 0
     k = str(input('input keyword: '))
     num = int(input('number of books x 100: '))
+    skip = int(input('number of downloaded book(s): '))
     path = str(input('input path: '))
     for i in range(1, num+1):
         print("Page ", i)
         tracks = create_tracks(k, i)
         links = create_links(tracks)
         for link in links:
+            count += 1
+            if count <= skip:
+                continue
             info = get_link(link)
             download(path, info, count)
-            count += 1
+            
 
 
