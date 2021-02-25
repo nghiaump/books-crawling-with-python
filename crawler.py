@@ -13,7 +13,7 @@ def create_tracks(keyword, page):
 def get_link(mirror):
     html_text = requests.get(mirror).text
     soup = BeautifulSoup(html_text, 'html.parser')
-    attrs = {'href':re.compile("http://31.42.184.140/main/")}
+    attrs = {'href':re.compile("https://ipfs.io/ipfs/")}
     track = soup.find('a', attrs=attrs)
     link = track.attrs['href']
     filename = soup.find('h1').text
@@ -66,6 +66,3 @@ if __name__ == '__main__':
                 continue
             info = get_link(link)
             download(path, info, count)
-            
-
-
